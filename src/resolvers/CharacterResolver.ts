@@ -8,4 +8,9 @@ export class CharacterResolver {
   characters() {
     return Character.find()
   }
+
+  @Query(() => Character)
+  character(@Arg('name') name: string) {
+    return Character.findOne({ where: { name } })
+  }
 }
