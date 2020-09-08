@@ -1,5 +1,13 @@
-import { Entity, BaseEntity, PrimaryGeneratedColumn, Column } from 'typeorm'
+import {
+  Entity,
+  BaseEntity,
+  PrimaryGeneratedColumn,
+  Column,
+  OneToMany,
+} from 'typeorm'
 import { ObjectType, Field, ID } from 'type-graphql'
+
+import { Character } from './Character'
 
 export enum LoginGender {
   SERVER = 'S',
@@ -12,7 +20,7 @@ export enum LoginGender {
 export class Login extends BaseEntity {
   @Field(() => ID)
   @PrimaryGeneratedColumn({ name: 'account_id' })
-  accountId: number
+  id: number
 
   @Field()
   @Column({ name: 'userid' })
@@ -25,4 +33,8 @@ export class Login extends BaseEntity {
   @Field()
   @Column({ name: 'logincount' })
   loginCount: number
+
+  @Field((type) => [Character])
+  @OneToMany((type) => Character, (character) => character.account)
+  characters: Promise<Character[]>
 }
