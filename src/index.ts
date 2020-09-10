@@ -13,7 +13,10 @@ async function main() {
   const schema = await buildSchema({
     resolvers: [CharacterResolver, LoginResolver],
   })
-  const server = new ApolloServer({ schema })
+  const server = new ApolloServer({
+    schema,
+    tracing: true,
+  })
   await server.listen(port)
   console.log('Server has started!')
 }
