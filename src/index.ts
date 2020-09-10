@@ -6,13 +6,15 @@ import { ApolloServer } from 'apollo-server'
 import { CharacterResolver } from './resolvers/CharacterResolver'
 import { LoginResolver } from './resolvers/LoginResolver'
 
+const port = process.env.PORT || 4000
+
 async function main() {
   const connection = await createConnection()
   const schema = await buildSchema({
     resolvers: [CharacterResolver, LoginResolver],
   })
   const server = new ApolloServer({ schema })
-  await server.listen(4000)
+  await server.listen(port)
   console.log('Server has started!')
 }
 
