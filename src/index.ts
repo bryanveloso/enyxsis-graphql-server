@@ -1,7 +1,8 @@
 import 'reflect-metadata'
+import express from 'express'
 import { buildSchema } from 'type-graphql'
 import { createConnection } from 'typeorm'
-import { ApolloServer } from 'apollo-server'
+import { ApolloServer } from 'apollo-server-express'
 
 import { CharacterResolver } from './resolvers/CharacterResolver'
 import { ItemResolver } from './resolvers/ItemResolver'
@@ -18,8 +19,14 @@ const main = async () => {
     schema,
     tracing: true,
   })
-  await server.listen(port)
-  console.log('Server has started!')
+
+  const app = express()
+  server.applyMiddleware({ app })
+  app.listen({ port }, () =>
+    console.log(
+      `🚀 Server ready at http://localhost:${port}${server.graphqlPath}`
+    )
+  )
 }
 
 main()
