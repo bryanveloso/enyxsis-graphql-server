@@ -8,12 +8,7 @@ import {
 import { ObjectType, Field, ID } from 'type-graphql'
 
 import { Character } from './Character'
-
-export enum LoginGender {
-  SERVER = 'S',
-  MALE = 'M',
-  FEMALE = 'F',
-}
+import { Gender } from '../enums'
 
 @Entity()
 @ObjectType()
@@ -26,9 +21,9 @@ export class Login extends BaseEntity {
   @Column({ name: 'userid' })
   username: string
 
-  @Field()
-  @Column({ name: 'sex', type: 'enum', enum: LoginGender })
-  gender: LoginGender
+  @Field((type) => Gender)
+  @Column({ name: 'sex' })
+  gender: Gender
 
   @Field()
   @Column({ name: 'logincount' })

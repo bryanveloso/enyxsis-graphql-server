@@ -9,6 +9,7 @@ import {
 import { ObjectType, Field, ID } from 'type-graphql'
 
 import { Login } from './Login'
+import { Connectivity, Gender } from '../enums'
 
 @Entity('char')
 @ObjectType()
@@ -85,4 +86,12 @@ export class Character extends BaseEntity {
   @Field()
   @Column({ name: 'max_sp' })
   maxSp: number
+
+  @Field((type) => Connectivity)
+  @Column()
+  online: Connectivity
+
+  @Field((type) => Gender)
+  @Column({ name: 'sex' })
+  gender: Gender
 }
